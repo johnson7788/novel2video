@@ -1,6 +1,6 @@
 import json
 from openai import OpenAI
-from env import LLM_API_KEY, LLM_BASE_URL
+from env import LLM_API_KEY, LLM_BASE_URL, LLM_MODEL
 
 _prompt = '''# Task
 Play the role of a stable diffusion prompt engineer, you need to generate appropriate stable diffusion drawing prompts based on the copy.
@@ -54,7 +54,7 @@ def text_to_prompt(text, max_retries=50):
                 # 当出现错误，并且偶次的时候，加上错误信息
                 messages.append(error_messages)
             completion = client.chat.completions.create(
-                model="deepseek-chat",
+                model=LLM_MODEL,
                 messages=messages,
             )
             # print(completion.choices[0].message.content)
