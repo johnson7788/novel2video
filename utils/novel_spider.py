@@ -385,8 +385,8 @@ def remove_unwanted_text(text):
 
 # 发送请求：模拟浏览器对于url地址发送请求
 headers = {
-    'Cookie':'paste your cookie here',
-    'User-Agent':'paste your user-agent here'
+    'Cookie':'_ga=GA1.1.1576925110.1713499317; novel_web_id=7359423480061969932; _ga_S37NWVC3ZR=GS1.1.1713499316.1.0.1713499398.0.0.0; Hm_lvt_2667d29c8e792e6fa9182c20a3013175=1719977228; csrf_session_id=07ee61248f2dd02cc583339a18aaf382; s_v_web_id=verify_ly5a16sa_fos65EVw_53Fk_4dp5_8JrK_p9hbvtBAx8ri; Hm_lpvt_2667d29c8e792e6fa9182c20a3013175=1719977263; ttwid=1%7CZGVeDAvyi1_nKYadcDDX54XyOMaxs5oFqvgkYwU5VIE%7C1719977265%7C6d3caeaafafac370bd74487a51bf15b802a3271f5da5f62c805904f3f3018076; msToken=Tm6HPc-0ixQ22yD8HFGPirlIk4yTcmmL620iK0JX7jbGXVq6umXr0NjPsfA2_01Dtx0d0owFmZyrvtJUD__aGwy9hsZs31_HouUDyVtKebUVkZ48A6hW',
+    'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 }
 
 book_id = input("请输入要爬取书目的ID：")

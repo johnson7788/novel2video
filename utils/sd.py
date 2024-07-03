@@ -1,8 +1,9 @@
 import requests
 import base64
 import os
+from env import SD_API
 def generate_image(prompt: str, seed: int, width: int, height: int, txt_name, order):
-    url = "http://127.0.0.1:7860"
+    url = SD_API    #"http://127.0.0.1:7860"
     # print(prompt)
     payload = {
         "prompt": prompt,

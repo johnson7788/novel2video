@@ -38,3 +38,5 @@ hs_err_pid*
 # 模型
 *.pth
 *.pt
+素材/小说原文/
+env.py

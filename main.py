@@ -69,7 +69,7 @@ def generate_videos(start_chapter, end_chapter, book_dir, book_name):
 
 def main():
     # 修改这里的章节数
-    generate_videos(1, 1, '素材/小说原文/霸道总裁爱上我', '霸道总裁爱上我')
+    generate_videos(1, 1, '素材/小说原文/癫，都癫，癫点好啊', '癫，都癫，癫点好啊')
 
 
 if __name__ == "__main__":

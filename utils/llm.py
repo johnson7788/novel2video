@@ -1,5 +1,6 @@
 import json
 from openai import OpenAI
+from env import LLM_API_KEY, LLM_BASE_URL
 
 _prompt = '''# Task
 Play the role of a stable diffusion prompt engineer, you need to generate appropriate stable diffusion drawing prompts based on the copy.
@@ -28,37 +29,61 @@ around tree babies running, a beautiful awesome artistic tree with falling flowe
 Below, the user will send you the chinese copy, you need to strictly follow the output format, output the specified json
 **ensure that the json format is correct and parseable.**'''
 
+
 def text_to_prompt(text, max_retries=50):
     retries = 0
     while retries < max_retries:
+        error_messages = []
         try:
             client = OpenAI(
                 # 改写这里为你自己的 key
-                api_key="sk-xxxxxx",
-                base_url="",
+                api_key=LLM_API_KEY,
+                base_url=LLM_BASE_URL,
             )
+            messages = [
+                           {
+                               "role": "system",
+                               "content": _prompt
+                           },
+                           {
+                               "role": "user",
+                               "content": text,
+                           },
+                       ]
+            if error_messages and retries%2 == 0:
+                # 当出现错误，并且偶次的时候，加上错误信息
+                messages.append(error_messages)
             completion = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": _prompt
-                    },
-                    {
-                        "role": "user",
-                        "content": text,
-                    },
-                ],
+                model="deepseek-chat",
+                messages=messages,
             )
             # print(completion.choices[0].message.content)
-            if json.loads(completion.choices[0].message.content) != None and json.loads(completion.choices[0].message.content)['txt'] != None and json.loads(completion.choices[0].message.content)['prompt'] != None:
+            if json.loads(completion.choices[0].message.content) != None and \
+                    json.loads(completion.choices[0].message.content)['txt'] != None and \
+                    json.loads(completion.choices[0].message.content)['prompt'] != None:
                 print(json.loads(completion.choices[0].message.content))
                 return json.loads(completion.choices[0].message.content)
             else:
                 raise Exception
         except Exception as e:
             retries += 1
+            error = f"发生了错误，错误是: {e},请尝试重新回答"
+            try:
+                ai_content = completion.choices[0].message.content
+                error_messages.append({
+                    "role": "assistant",
+                    "content": ai_content,
+                })
+            except:
+                error_messages.append({
+                    "role": "assistant",
+                    "content": "",
+                })
+            error_messages.append({
+                "role": "user",
+                "content": error,
+            })
             print(f"Attempt {retries} failed with error: {e}. Retrying...")
-    return {"txt":"uh", "prompt":"landscape"}
+    return {"txt": "uh", "prompt": "landscape"}
 
 # res = text_to_prompt("大巴中共有7人，三女，四男")
